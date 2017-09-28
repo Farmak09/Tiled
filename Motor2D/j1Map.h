@@ -11,40 +11,41 @@
 // ----------------------------------------------------
 struct TileSet
 {
-	uint firstgid			= 1;
-	p2SString name			= "";
-	uint tilewidth			= 32;
-	uint tileheight			= 32;
-	uint spacing			= 1;
-	uint margin				= 1;
+	uint firstgid			= 0;
+	p2SString name;
+	uint tilewidth			= 0;
+	uint tileheight			= 0;
+	uint spacing			= 0;
+	uint margin				= 0;
 };
 
+enum orientation
+{
+	invalid = 0,
+	orthogonal,
+	isometric,
+	staggered,
+	hexagonal
+};
+enum renderorder
+{
+	invalid = 0,
+	right_down,
+	right_up,
+	left_down,
+	left_up
+};
 
 struct Map
 {
-	enum orientation
-	{
-		orthogonal,
-		isometric,
-		staggered,
-		hexagonal
-	};
-	enum renderorder
-	{
-		right_down,
-		right_up,
-		left_down,
-		left_up
-	};
-	uint major_version		= 1;
-	uint minor_version		= 0;
-	orientation orientation	= orthogonal;
-	renderorder renderorder = right_down;
-	uint width				= 50;
-	uint height				= 15;
-	uint tilewidth			= 32;
-	uint tileheight			= 32;
-	uint nextobjectid		= 1;
+	
+	orientation orientation	= orientation::invalid;
+	renderorder renderorder = renderorder::invalid;
+	uint width				= 0;
+	uint height				= 0;
+	uint tilewidth			= 0;
+	uint tileheight			= 0;
+	uint nextobjectid		= 0;
 };
 
 // TODO 1: Create a struct needed to hold the information to Map node
@@ -74,6 +75,7 @@ public:
 
 private:
 
+	bool FillMapData(pugi::xml_node& node);
 
 public:
 

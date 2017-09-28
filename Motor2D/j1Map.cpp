@@ -66,6 +66,7 @@ bool j1Map::Load(const char* file_name)
 
 	if(ret == true)
 	{
+		FillMapData(map_file.child("map"));
 		// TODO 3: Create and call a private function to load and fill
 		// all your map data
 	}
@@ -85,3 +86,31 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
+bool j1Map::FillMapData(pugi::xml_node& node)
+{
+	p2SString orientation_string = node.attribute("orientation").as_string();
+
+	if (orientation_string		== "orthogonal")
+		map.orientation		= orthogonal;
+	else if (orientation_string == "isometric")
+		map.orientation		= isometric;
+	else if (orientation_string == "hexagonal")
+		map.orientation		= hexagonal;
+	else if (orientation_string == "staggered")
+		map.orientation		= staggered;
+
+	p2SString renderorder_string = node.attribute("renderorder").as_string();
+
+	if (renderorder_string		== "right-down")
+		map.renderorder		= right_down;
+	else if (renderorder_string == "right-up")
+		map.renderorder		= right_up;
+	else if (renderorder_string == "left-down")
+		map.renderorder		= left_down;
+	else if (renderorder_string == "left-up")
+		map.renderorder		= left_up;
+
+
+
+	return true;
+}
