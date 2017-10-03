@@ -4,7 +4,6 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-#include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -67,6 +66,11 @@ bool j1Map::Load(const char* file_name)
 	if(ret == true)
 	{
 		FillMapData(map_file.child("map"));
+
+		pugi::xml_node tileset = map_file.child("map").child("tileset");
+
+		for (tileset; tileset; tileset = tileset.next_sibling("tileset"))
+			FillTileSetData(tileset);
 		// TODO 3: Create and call a private function to load and fill
 		// all your map data
 	}
@@ -110,7 +114,44 @@ bool j1Map::FillMapData(pugi::xml_node& node)
 	else if (renderorder_string == "left-up")
 		map.renderorder		= left_up;
 
+	map.width				= node.attribute("width").as_uint();
 
+	map.height				= node.attribute("height").as_uint();
+
+	map.tilewidth			= node.attribute("tilewidth").as_uint();
+
+	map.tileheight			= node.attribute("tileheight").as_uint();
+
+	map.nextobjectid		= node.attribute("nextobjectid").as_uint();
 
 	return true;
+}
+bool j1Map::FillTileSetData(pugi::xml_node& tileset)
+{
+	TileSet TileStruct;
+
+	TileStruct.firstgid		= tileset.attribute("firstgid").as_uint();
+
+	TileStruct.name			= tileset.attribute("name").as_string();
+
+	TileStruct.tilewidth	= tileset.attribute("tilewidth").as_uint();
+
+	TileStruct.tileheight	= tileset.attribute("tileheight").as_uint();
+
+	TileStruct.spacing		= tileset.attribute("spacing").as_uint();
+
+	TileStruct.margin		= tileset.attribute("margin").as_uint();
+
+	TileStruct.tilecount	= tileset.attribute("tilecount").as_uint();
+
+	TileStruct.columns		= tileset.attribute("columns").as_uint();
+
+
+	TileStruct.imagesource	= tileset.child("image").attribute("source").as_string();
+
+	TileStruct.imageheight	= tileset.child("image").attribute("height").as_uint();
+	
+	TileStruct.imagewidth	= tileset.child("image").attribute("width").as_uint();
+
+	TileSets.add(TileStruct);
 }

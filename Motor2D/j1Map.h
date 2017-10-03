@@ -17,6 +17,12 @@ struct TileSet
 	uint tileheight			= 0;
 	uint spacing			= 0;
 	uint margin				= 0;
+	uint tilecount			= 0;
+	uint columns			= 0;
+	p2SString imagesource;
+	uint imagewidth			= 0;
+	uint imageheight		= 0;
+
 };
 
 enum orientation
@@ -77,6 +83,7 @@ private:
 
 	bool FillMapData(pugi::xml_node& node);
 
+	bool FillTileSetData(pugi::xml_node& node);
 public:
 
 	Map map;
