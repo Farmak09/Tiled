@@ -22,20 +22,22 @@ struct TileSet
 	p2SString imagesource;
 	uint imagewidth			= 0;
 	uint imageheight		= 0;
+	SDL_Texture* texture;
 
 };
 
 enum orientation
 {
-	invalid = 0,
+	invalid_orientation,
 	orthogonal,
 	isometric,
 	staggered,
 	hexagonal
 };
+
 enum renderorder
 {
-	invalid = 0,
+	invalid_renderorder,
 	right_down,
 	right_up,
 	left_down,
@@ -43,10 +45,9 @@ enum renderorder
 };
 
 struct Map
-{
-	
-	orientation orientation	= orientation::invalid;
-	renderorder renderorder = renderorder::invalid;
+{	
+	orientation orientation	= invalid_orientation;
+	renderorder renderorder = invalid_renderorder;
 	uint width				= 0;
 	uint height				= 0;
 	uint tilewidth			= 0;

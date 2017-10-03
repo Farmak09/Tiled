@@ -1,0 +1,4 @@
+﻿  j1Map.cpp
+c:\users\farma\documents\visual studio 2015\projects\vec3\tiled\motor2d\j1map.cpp(89): warning C4018: '>': signed/unsigned mismatch
+  Motor2D.vcxproj -> C:\Users\farma\Documents\Visual Studio 2015\Projects\Vec3\Tiled\Debug\Motor 2D.exe
+  Motor2D.vcxproj -> C:\Users\farma\Documents\Visual Studio 2015\Projects\Vec3\Tiled\Debug\Motor 2D.pdb (Full PDB)

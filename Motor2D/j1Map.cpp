@@ -30,6 +30,7 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	App->render->Blit(TileSets.start->data.texture, 0, 0);
 	// TODO 6: Iterate all tilesets and draw all their 
 	// images in 0,0 (you should have only one tileset for now)
 
@@ -81,6 +82,18 @@ bool j1Map::Load(const char* file_name)
 
 	if(ret == true)
 	{
+		LOG("Successfully parsed map XML file: %s", file_name);
+		LOG("width: %d height: %d", map.width, map.height);
+		LOG("tile_width: %d tile_height: %d", map.tilewidth, map.tileheight);
+
+		for (int i = 0;TileSets.count() > i; i++)
+		{
+			LOG("Tileset --%i--", i+1);
+			LOG("name: %s firstgid: %d", TileSets[i].name.GetString(), TileSets[i].firstgid);
+			LOG("tile width: %d tile height: %d", TileSets[i].tilewidth, TileSets[i].tileheight);
+			LOG("spacing: %d margin: %d", TileSets[i].spacing, TileSets[i].margin);
+		}
+
 		// TODO 5: LOG all the data loaded
 		// iterate all tilesets and LOG everything
 	}
@@ -153,5 +166,11 @@ bool j1Map::FillTileSetData(pugi::xml_node& tileset)
 	
 	TileStruct.imagewidth	= tileset.child("image").attribute("width").as_uint();
 
+	char image_directory[55] = "maps/";
+	strcat(image_directory, tileset.child("image").attribute("source").as_string());
+	TileStruct.texture = App->tex->Load(image_directory);
+
 	TileSets.add(TileStruct);
+
+	return true;
 }
