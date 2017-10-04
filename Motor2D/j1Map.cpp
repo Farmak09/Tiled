@@ -166,9 +166,7 @@ bool j1Map::FillTileSetData(pugi::xml_node& tileset)
 	
 	TileStruct.imagewidth	= tileset.child("image").attribute("width").as_uint();
 
-	char image_directory[55] = "maps/";
-	strcat(image_directory, tileset.child("image").attribute("source").as_string());
-	TileStruct.texture = App->tex->Load(image_directory);
+	TileStruct.texture = App->tex->Load(tileset.child("image").attribute("source").as_string());
 
 	TileSets.add(TileStruct);
 
